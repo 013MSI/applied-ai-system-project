@@ -64,9 +64,7 @@ flowchart TD
     EH --> PS & AI --> RPT
 ```
 
-> **Architecture image:** open `assets/architecture.md`, paste the Mermaid
-> source into [mermaid.live](https://mermaid.live), export as PNG, and save to
-> `assets/architecture.png`.
+![System Architecture](assets/architecture.png)
 
 ---
 
@@ -107,6 +105,7 @@ python -m pytest
 ### Interaction 1 — Two pets, tight time budget
 
 **Input:** Owner: Jordan, 1.5 hours available.
+
 - Mochi (dog, age 5, health notes: "mild arthritis in left hip"):
   - Morning walk — 45 min, high priority
   - Joint meds — 10 min, high priority
@@ -142,6 +141,7 @@ Tool calls made: 4 (`get_care_guidelines` × 2, `assess_schedule_feasibility`,
 ### Interaction 2 — Over-capacity scenario
 
 **Input:** Owner: Alex, 1 hour available.
+
 - Biscuit (dog, age 2):
   - Long hike — 90 min, medium priority
   - Grooming — 30 min, low priority
@@ -171,6 +171,7 @@ picks Grooming.
 ### Interaction 3 — Health concern flagged by AI
 
 **Input:** Owner: Sam, 2 hours available.
+
 - Buddy (dog, age 10, health notes: "severe arthritis, limping"):
   - Long hike — 90 min, medium priority
   - Meds — 10 min, high priority
@@ -194,7 +195,7 @@ budget after knapsack optimisation favours high-priority meds).
 ## Design Decisions
 
 | Decision | Rationale | Trade-off |
-|---|---|---|
+| --- | --- | --- |
 | Knapsack for task selection | Maximises total priority value within the time budget — better than a greedy first-fit when task durations vary. | NP-hard in theory but fast in practice for ≤ 30 tasks. Does not respect time-window preferences. |
 | Agentic tool-use loop | Claude can call multiple tools in sequence, combining their outputs before deciding — more accurate than a single-shot prompt. | Requires 2–4 API round-trips; adds latency (~2–4 s). |
 | Local tools, not external APIs | Care guidelines and health checks run entirely on-device — no third-party data sent, no extra credentials needed, deterministic results. | Knowledge base is static; no real-time vet data. |
@@ -210,7 +211,7 @@ budget after knapsack optimisation favours high-priority meds).
 `tests/test_ai_advisor.py`.
 
 | Suite | Tests | Passed | Notes |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Scheduling (pawpal_system) | 5 | 5 | Knapsack, sorting, recurrence, conflicts, edge cases |
 | Local tools (ai_advisor) | 11 | 11 | All get_care_guidelines, feasibility, and health-concern cases |
 
@@ -224,6 +225,7 @@ budget after knapsack optimisation favours high-priority meds).
   schedule was empty (less context to work with).
 
 **What didn't work well:**
+
 - When `available_hours = 0`, the scheduler returns an empty plan but the AI
   Advisor's tool call `assess_schedule_feasibility(0, 0)` hits the divide-by-
   zero guard and returns a generic message. The advice is less actionable in
