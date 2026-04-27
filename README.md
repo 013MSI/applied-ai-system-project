@@ -37,33 +37,6 @@ The system has three layers:
 3. **Streamlit UI** (`app.py`) — connects the layers; shows the schedule, an
    expandable tool-call trace, the AI's advice, and a confidence metric.
 
-```mermaid
-flowchart TD
-    U["👤 User (pet owner)"]
-    UI["🖥️ Streamlit UI\napp.py"]
-    PS["🐾 PawPal System\npawpal_system.py"]
-    KS["⚙️ Knapsack Scheduler\nPriority-weighted selection\nConflict detection · Scoring"]
-    AI["🤖 AI Advisor\nai_advisor.py — agentic loop"]
-    T1["📋 get_care_guidelines\nLocal knowledge base"]
-    T2["⏱️ assess_schedule_feasibility\nTime-budget check"]
-    T3["❤️ flag_health_concern\nHealth-note pattern matching"]
-    CL["☁️ Claude API\nclaude-haiku-4-5"]
-    LOG["📝 Logger"]
-    OUT["📅 Schedule + AI Advice\n+ Confidence Score"]
-    EH["🧪 Eval Harness\neval_harness.py"]
-    RPT["📊 Test Report\nPass/Fail · Avg Confidence"]
-
-    U -->|"Owner, pets, tasks"| UI
-    UI --> PS --> KS -->|"Generated schedule"| UI
-    UI -->|"Schedule context"| AI
-    AI -->|"Tool calls"| T1 & T2 & T3
-    T1 & T2 & T3 -->|"Results"| AI
-    AI <-->|"Agentic loop"| CL
-    AI --> LOG
-    AI -->|"Advice + confidence"| UI --> OUT
-    EH --> PS & AI --> RPT
-```
-
 ![System Architecture](assets/architecture.png)
 
 ---
