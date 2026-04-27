@@ -218,13 +218,9 @@ good or problematic. The AI doesn't replace the scheduler — it interprets it.
 
 ---
 
-## Loom Walkthrough
+## Video Walkthrough
 
-> 📹 **[Add your Loom link here before submitting]**
->
-> The walkthrough should show: (1) adding pets and tasks, (2) generating a
-> schedule, (3) getting AI advice with the tool-call trace visible, and
-> (4) running `python eval_harness.py` in the terminal.
+[![Watch the video]([https://i.sstatic.net/Vp2cE.png)](https://youtu.be/vt5fpE0bzSY](https://github.com/013MSI/applied-ai-system-project/blob/main/demo-codepath-ai110.mp4))
 
 ---
 
